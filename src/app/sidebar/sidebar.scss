@@ -1,0 +1,47 @@
+.layout {
+  height: 100vh;
+  background: #0e0e0e;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 260px;
+  background: #121212;
+  color: #fff;
+  padding: 16px;
+}
+
+
+.sidebar__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* CONTENT */
+.content {
+  background: linear-gradient(180deg, #0f2027, #000);
+}
+
+.topbar {
+  background: transparent;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+/* Menu button */
+.menu-btn {
+  display: none;
+}
+
+/* PAGE */
+.page {
+  padding: 24px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+  .menu-btn {
+    display: block;
+  }
+}

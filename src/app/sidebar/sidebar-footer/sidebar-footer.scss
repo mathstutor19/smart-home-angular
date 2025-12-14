@@ -1,0 +1,25 @@
+.sidebar-footer {
+  position: absolute;
+  bottom: 0px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    background: #4b4b6b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+
+  .user-placeholder {
+    font-size: 14px;
+    color: #aaa;
+  }
+}
