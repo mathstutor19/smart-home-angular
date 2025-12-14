@@ -15,22 +15,4 @@
     </div>
     <app-sidebar-footer></app-sidebar-footer>
   </mat-sidenav>
-
-  <!-- CONTENT -->
-  <mat-sidenav-content class="content">
-    <!-- TOP BAR -->
-    <mat-toolbar class="topbar">
-      <!-- Toggle icon faqat mobile/tablet uchun -->
-      <button mat-icon-button class="menu-btn" (click)="toggleSidebar()">
-        <mat-icon>menu</mat-icon>
-      </button>
-
-      <span class="title">Overview</span>
-    </mat-toolbar>
-
-    <!-- PAGE CONTENT -->
-    <div class="page">
-      <ng-content></ng-content>
-    </div>
-  </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,16 +1,15 @@
 .layout {
   height: 100vh;
+  width: 260px;
   background: #0e0e0e;
 }
 
 /* SIDEBAR */
 .sidebar {
-  width: 260px;
   background: #121212;
   color: #fff;
   padding: 16px;
 }
-
 
 .sidebar__wrapper {
   display: flex;

@@ -5,14 +5,21 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { SidebarFooter } from "./sidebar-footer/sidebar-footer";
-import { SidebarMenu } from "./sidebar-menu/sidebar-menu";
-import { SidebarHeader } from "./sidebar-header/sidebar-header";
+import { SidebarFooter } from './sidebar-footer/sidebar-footer';
+import { SidebarMenu } from './sidebar-menu/sidebar-menu';
+import { SidebarHeader } from './sidebar-header/sidebar-header';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [MatSidenavModule, MatIconModule, MatToolbarModule, MatButtonModule, SidebarFooter, SidebarMenu, SidebarHeader],
+  imports: [
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    SidebarFooter,
+    SidebarMenu,
+  ],
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.scss'],
 })

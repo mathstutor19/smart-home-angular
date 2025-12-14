@@ -1,0 +1,5 @@
+<div class="device-row" [appHighlightOn]="item.state">
+  <mat-icon>{{ item.icon }}</mat-icon>
+  <span>{{ item.label }}</span>
+  <mat-slide-toggle [(ngModel)]="item.state"></mat-slide-toggle>
+</div>

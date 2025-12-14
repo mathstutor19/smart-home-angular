@@ -1,0 +1,49 @@
+.tab-content {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.cards-container {
+  display: flex !important;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.tab-card {
+  width: 300px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: #1e1e1e;
+  color: white;
+}
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+}
+
+mat-card {
+  width: 300px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sensor-row,
+.device-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.horizontalLayout .sensor-row,
+.horizontalLayout .device-row {
+  flex-direction: row;
+}
+
+.verticalLayout .sensor-row,
+.verticalLayout .device-row {
+  flex-direction: column;
+}
