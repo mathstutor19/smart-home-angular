@@ -31,6 +31,8 @@
 /* Menu button */
 .menu-btn {
   display: none;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
 /* PAGE */
@@ -42,5 +44,10 @@
 @media (max-width: 991px) {
   .menu-btn {
     display: block;
+  }
+  .layout {
+    height: 100vh;
+    width: 170px;
+    background: #0e0e0e;
   }
 }

@@ -5,3 +5,9 @@
   height: 100vh;
   margin: auto;
 }
+@media (max-width: 991px) {
+  .dashboard {
+    width: 100vw;
+    margin-left: -260px;
+  }
+}
