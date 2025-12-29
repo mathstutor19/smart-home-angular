@@ -4,45 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { HighlightOnDirective } from '../highlight';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatIcon } from '@angular/material/icon';
-import { SensorValuePipe } from '../sensor-value-pipe';
 import { FormsModule } from '@angular/forms';
 import { DeviceComponent } from '../device/device';
 import { SensorComponent } from '../sensor/sensor';
+import { SensorValue, DeviceItem, SensorItem, CardItem, Card, Tab } from '../models/tab.model';
 
-interface SensorValue {
-  amount: number;
-  unit: string;
-}
-
-interface DeviceItem {
-  type: 'device';
-  icon: string;
-  label: string;
-  state: boolean;
-}
-
-interface SensorItem {
-  type: 'sensor';
-  icon: string;
-  label: string;
-  value: SensorValue;
-}
-
-type CardItem = DeviceItem | SensorItem;
-
-interface Card {
-  id: string;
-  title: string;
-  layout: 'singleDevice' | 'horizontalLayout' | 'verticalLayout';
-  items: CardItem[];
-}
-
-interface Tab {
-  id: string;
-  title: string;
-  cards: Card[];
-}
 @Component({
   selector: 'app-tab-switcher',
   standalone: true,

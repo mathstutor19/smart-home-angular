@@ -4,13 +4,13 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-sidebar-header',
+  standalone: true,
   imports: [MatIconModule, MatButtonModule],
   templateUrl: './sidebar-header.html',
   styleUrls: ['./sidebar-header.scss'],
 })
 export class SidebarHeader {
   // @Output() toggle = new EventEmitter<void>();
-
   // onToggle() {
   //   this.toggle.emit();
   // }

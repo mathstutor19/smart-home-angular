@@ -2,18 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { SensorValuePipe } from '../sensor-value-pipe';
-
-export interface SensorValue {
-  amount: number;
-  unit: string;
-}
-
-export interface SensorItem {
-  type: 'sensor';
-  icon: string;
-  label: string;
-  value: SensorValue;
-}
+import { SensorItem } from '../models/sensor.model'; // <-- import qilindi
 
 @Component({
   selector: 'app-sensor',
