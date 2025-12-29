@@ -1,6 +1,6 @@
-<mat-sidenav-container class="layout">
-  <!-- SIDEBAR -->
+<mat-sidenav-container class="layout" *ngIf="isAuth()">
   <mat-sidenav class="sidebar" [mode]="isMobile ? 'over' : 'side'" [opened]="isOpened">
+    <!-- Logo + toggle -->
     <div (click)="toggleSidebar()">
       <div class="logo">
         <button mat-icon-button>
@@ -10,11 +10,21 @@
       </div>
     </div>
 
+    <!-- Sidebar Menu -->
     <div class="sidebar__wrapper">
       <app-sidebar-menu></app-sidebar-menu>
     </div>
-    <app-sidebar-footer></app-sidebar-footer>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar__footer" *ngIf="user()">
+      <div class="footer-avatar">{{ user()?.initials }}</div>
+      <div class="footer-name">{{ user()?.fullName }}</div>
+      <button mat-button (click)="logout()"><mat-icon>logout</mat-icon> Logout</button>
+    </div>
   </mat-sidenav>
+
+  <app-sidebar-footer></app-sidebar-footer>
+  <!-- Toggle Button (Mobile) -->
   <button (click)="toggleSidebar()" class="menu-btn" mat-icon-button>
     <mat-icon>menu</mat-icon>
   </button>

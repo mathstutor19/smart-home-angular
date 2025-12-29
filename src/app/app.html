@@ -1,4 +1,6 @@
 <main class="main">
-  <app-sidebar *ngIf="authService.authState$ | async"></app-sidebar>
+  <!-- Sidebar faqat login bo‘lganda -->
+  <app-sidebar *ngIf="isAuth()"></app-sidebar>
+
   <router-outlet></router-outlet>
 </main>

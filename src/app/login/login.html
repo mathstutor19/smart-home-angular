@@ -1,33 +1,12 @@
 <div class="login-wrapper">
-  <mat-card class="login-card">
-    <h2 class="title">Welcome home!</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="login-card">
+    <h2>Login</h2>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <!-- 🔹 FormControl nomi backend bilan mos -->
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="userName" />
-      </mat-form-field>
+    <input placeholder="Username" formControlName="userName" />
+    <input type="password" placeholder="Password" formControlName="password" />
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" />
-      </mat-form-field>
+    <button type="submit">Login</button>
 
-      <button
-        mat-raised-button
-        color="primary"
-        class="full-width"
-        type="submit"
-        [disabled]="loginForm.invalid || isLoading"
-      >
-        LOG IN
-      </button>
-
-      <!-- 🔹 Xatolik xabarini ko‘rsatish -->
-      <div class="error" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </div>
-    </form>
-  </mat-card>
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+  </form>
 </div>

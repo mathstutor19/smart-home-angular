@@ -1,9 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarLayoutComponent } from './sidebar/sidebar';
 import { Dashboard } from './dashboard/dashboard';
-import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -13,5 +13,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.scss',
 })
 export class App {
-  authService = inject(AuthService);
+  private auth = inject(AuthService);
+  isAuth = computed(() => this.auth.isAuthenticated());
 }
