@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 export interface User {
   userName: string;
-  password: string;
+  password?: string;
   fullName: string;
   initials: string;
   token: string;
@@ -19,10 +19,11 @@ export class AuthService {
   error = signal<string | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {
-    // SSR-safe: faqat browserda localStorage ishlaydi
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
-      if (token) {
+      const userData = localStorage.getItem('currentUser');
+      if (userData) {
+        const user: User = JSON.parse(userData);
+        this.currentUser.set(user);
         this.isAuthenticated.set(true);
       }
     }
@@ -40,16 +41,15 @@ export class AuthService {
           return;
         }
 
-        // SSR-safe localStorage
         if (typeof window !== 'undefined') {
-          localStorage.setItem('token', user.token);
+          localStorage.setItem('currentUser', JSON.stringify(user));
         }
 
         this.currentUser.set(user);
         this.isAuthenticated.set(true);
-
-        // Dashboard/home ga redirect
         this.router.navigate(['/dashboard']);
+        // Dashboardga o‘tmasin, shunchaki sidebar ko‘rsin
+        // this.router.navigate(['/']); // komment qildik
       },
       error: () => {
         this.error.set('Unknown error occurred. Please try again later.');
@@ -59,7 +59,7 @@ export class AuthService {
 
   logout() {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('token');
+      localStorage.removeItem('currentUser');
     }
     this.currentUser.set(null);
     this.isAuthenticated.set(false);

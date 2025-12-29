@@ -1,0 +1,10 @@
+<div class="page-404">
+  <h1>404</h1>
+  <p>Page not found</p>
+
+  <!-- Foydalanuvchi login bo‘lsa dashboardga yo‘naltirish -->
+  <a *ngIf="isAuth()" routerLink="/dashboard">Go to Dashboard</a>
+
+  <!-- Login qilmagan bo‘lsa login sahifaga yo‘naltirish -->
+  <a *ngIf="!isAuth()" routerLink="/login">Go to Login</a>
+</div>
