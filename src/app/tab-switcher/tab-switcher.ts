@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { HighlightOnDirective } from '../highlight';
@@ -7,7 +7,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { DeviceComponent } from '../device/device';
 import { SensorComponent } from '../sensor/sensor';
-import { SensorValue, DeviceItem, SensorItem, CardItem, Card, Tab } from '../models/tab.model';
+import { DashboardService } from '../services/dashboard.service';
+import { Tab } from '../models/tab.model';
 
 @Component({
   selector: 'app-tab-switcher',
@@ -24,127 +25,26 @@ import { SensorValue, DeviceItem, SensorItem, CardItem, Card, Tab } from '../mod
   templateUrl: './tab-switcher.html',
   styleUrls: ['./tab-switcher.scss'],
 })
-export class TabSwitcher {
-  tabs: Tab[] = [
-    {
-      id: 'overview',
-      title: 'Overview',
-      cards: [
-        {
-          id: 'balcony-weather',
-          title: 'Balcony',
-          layout: 'horizontalLayout',
-          items: [
-            {
-              type: 'sensor',
-              icon: 'thermostat',
-              label: 'Temperature',
-              value: { amount: 18.5, unit: '°C' },
-            },
-            {
-              type: 'sensor',
-              icon: 'water_drop',
-              label: 'Humidity',
-              value: { amount: 72, unit: '%' },
-            },
-            {
-              type: 'sensor',
-              icon: 'cloud',
-              label: 'Weather',
-              value: { amount: 1, unit: 'clear' },
-            },
-          ],
-        },
-        {
-          id: 'indoor-rooms',
-          title: 'Rooms',
-          layout: 'verticalLayout',
-          items: [
-            {
-              type: 'sensor',
-              icon: 'co2',
-              label: 'CO2 Sensor',
-              value: { amount: 520, unit: 'ppm' },
-            },
-            {
-              type: 'sensor',
-              icon: 'water_drop',
-              label: 'Humidity',
-              value: { amount: 45, unit: '%' },
-            },
-          ],
-        },
-        {
-          id: 'bathroom-motion',
-          title: 'Bathroom',
-          layout: 'singleDevice',
-          items: [
-            {
-              type: 'sensor',
-              icon: 'motion_photos_on',
-              label: 'Motion Sensor',
-              value: { amount: 1, unit: 'detected' },
-            },
-          ],
-        },
-        {
-          id: 'living-room-mixed',
-          title: 'Living Room',
-          layout: 'verticalLayout',
-          items: [
-            { type: 'device', icon: 'lightbulb', label: 'Floor Lamp', state: true },
-            { type: 'device', icon: 'power', label: 'TV Socket', state: false },
-            {
-              type: 'sensor',
-              icon: 'thermostat',
-              label: 'Temperature',
-              value: { amount: 23.5, unit: '°C' },
-            },
-            {
-              type: 'sensor',
-              icon: 'co2',
-              label: 'CO2 Sensor',
-              value: { amount: 610, unit: 'ppm' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: 'lights',
-      title: 'Lights',
-      cards: [
-        {
-          id: 'kitchen-light',
-          title: 'Kitchen',
-          layout: 'singleDevice',
-          items: [{ type: 'device', icon: 'lightbulb', label: 'Ceiling Light', state: true }],
-        },
-        {
-          id: 'corridor-light',
-          title: 'Corridor',
-          layout: 'singleDevice',
-          items: [{ type: 'device', icon: 'lightbulb', label: 'Ceiling Light', state: false }],
-        },
-        {
-          id: 'living-room-light',
-          title: 'Living Room',
-          layout: 'singleDevice',
-          items: [{ type: 'device', icon: 'lightbulb', label: 'Chandelier', state: true }],
-        },
-        {
-          id: 'bedroom-light',
-          title: 'Bedroom',
-          layout: 'singleDevice',
-          items: [{ type: 'device', icon: 'lightbulb', label: 'Main Light', state: true }],
-        },
-        {
-          id: 'bathroom-light',
-          title: 'Bathroom',
-          layout: 'singleDevice',
-          items: [{ type: 'device', icon: 'lightbulb', label: 'Ceiling Light', state: false }],
-        },
-      ],
-    },
-  ];
+export class TabSwitcher implements OnInit {
+  tabs: Tab[] = [];
+  selectedIndex = 0;
+
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnInit() {
+    this.loadDashboardTabs('overview'); // default dashboardId, keyinchalik route’dan olinadi
+  }
+
+  loadDashboardTabs(dashboardId: string) {
+    this.dashboardService.getDashboardById(dashboardId).subscribe({
+      next: (data) => {
+        this.tabs = data.tabs || [];
+        this.selectedIndex = 0;
+      },
+      error: (err) => {
+        console.error('Error loading tabs:', err);
+        this.tabs = [];
+      },
+    });
+  }
 }

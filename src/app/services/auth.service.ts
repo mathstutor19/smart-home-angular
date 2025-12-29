@@ -19,12 +19,22 @@ export class AuthService {
   error = signal<string | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {
+    this.initUserFromStorage();
+  }
+
+  /** App yuklanganda localStorage’dan tekshirish */
+  private initUserFromStorage() {
     if (typeof window !== 'undefined') {
       const userData = localStorage.getItem('currentUser');
       if (userData) {
         const user: User = JSON.parse(userData);
         this.currentUser.set(user);
         this.isAuthenticated.set(true);
+
+        // Agar hozir login page'da bo‘lsa, avtomatik dashboardga yo‘naltirish
+        if (this.router.url === '/login') {
+          this.router.navigate(['/dashboard']);
+        }
       }
     }
   }
@@ -47,9 +57,9 @@ export class AuthService {
 
         this.currentUser.set(user);
         this.isAuthenticated.set(true);
+
+        // Login bo‘lgandan keyin dashboardga yo‘naltirish
         this.router.navigate(['/dashboard']);
-        // Dashboardga o‘tmasin, shunchaki sidebar ko‘rsin
-        // this.router.navigate(['/']); // komment qildik
       },
       error: () => {
         this.error.set('Unknown error occurred. Please try again later.');
@@ -64,5 +74,17 @@ export class AuthService {
     this.currentUser.set(null);
     this.isAuthenticated.set(false);
     this.router.navigate(['/login']);
+  }
+
+  getUser() {
+    return this.currentUser();
+  }
+
+  isAuth() {
+    return this.isAuthenticated();
+  }
+
+  getError() {
+    return this.error();
   }
 }

@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarLayoutComponent, CommonModule, Dashboard],
+  imports: [RouterOutlet, SidebarLayoutComponent, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

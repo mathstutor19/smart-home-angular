@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class Login {
     password: ['', Validators.required],
   });
 
-  error = computed(() => this.auth.error());
+  error = computed(() => this.auth.getError());
 
   submit() {
     if (this.form.invalid) return;

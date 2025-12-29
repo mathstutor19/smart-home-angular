@@ -1,6 +1,15 @@
 <main class="main">
   <!-- Sidebar faqat login bo‘lganda -->
-  <app-sidebar *ngIf="isAuth()"></app-sidebar>
+  <!-- <app-sidebar *ngIf="isAuth()"></app-sidebar> -->
 
-  <router-outlet></router-outlet>
+  <!-- <router-outlet></router-outlet> -->
+  <!-- app.component.html -->
+  <ng-container *ngIf="isAuth(); else loginPage">
+    <app-sidebar></app-sidebar>
+    <router-outlet></router-outlet>
+  </ng-container>
+
+  <ng-template #loginPage>
+    <router-outlet></router-outlet>
+  </ng-template>
 </main>

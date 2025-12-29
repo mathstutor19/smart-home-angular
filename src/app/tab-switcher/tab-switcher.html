@@ -1,5 +1,5 @@
-<mat-tab-group animationDuration="200ms">
-  <mat-tab *ngFor="let tab of tabs" [label]="tab.title" [style.background-color]="'#000'">
+<mat-tab-group animationDuration="200ms" [(selectedIndex)]="selectedIndex">
+  <mat-tab *ngFor="let tab of tabs" [label]="tab.title">
     <div class="cards-container">
       <mat-card class="tab-card" *ngFor="let card of tab.cards" [ngClass]="card.layout">
         <mat-card-title>{{ card.title }}</mat-card-title>
@@ -12,4 +12,3 @@
     </div>
   </mat-tab>
 </mat-tab-group>
-
