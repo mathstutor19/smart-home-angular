@@ -1,48 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Tab } from '../models/tab.model';
+import { Dashboard } from '../models/dashboard.models';
 
-export interface Dashboard {
-  id: string;
-  title: string;
-  icon: string;
-}
-
-export interface DashboardDetails {
-  tabs: Tab[];
-}
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class DashboardService {
-  private baseUrl = 'http://localhost:3004/api';
+  private API = 'http://localhost:3004/api/dashboards';
+  private TOKEN = '58ebfdf7f1f558c5c86e17f6'; // static token
 
   constructor(private http: HttpClient) {}
 
-  private getAuthHeaders() {
-    const token = localStorage.getItem('token') || '';
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+  getDashboardById(id: string): Observable<Dashboard> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.TOKEN}`,
     });
+
+    return this.http.get<Dashboard>(`${this.API}/${id}`, { headers });
   }
 
-  getDashboards(): Observable<Dashboard[]> {
-    return this.http.get<Dashboard[]>(`${this.baseUrl}/dashboards`, {
-      headers: this.getAuthHeaders(),
+  // Masalan keyinchalik POST / PUT uchun typed method
+  saveDashboard(dashboard: Dashboard): Observable<Dashboard> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.TOKEN}`,
     });
-  }
 
-  getDashboardById(dashboardId: string): Observable<DashboardDetails> {
-    return this.http.get<DashboardDetails>(`${this.baseUrl}/dashboards/${dashboardId}`, {
-      headers: this.getAuthHeaders(),
-    });
-  }
-
-  getDevices(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/devices`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.put<Dashboard>(`${this.API}/${dashboard.id}`, dashboard, { headers });
   }
 }

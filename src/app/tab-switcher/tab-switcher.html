@@ -1,11 +1,12 @@
 <mat-tab-group animationDuration="200ms" [(selectedIndex)]="selectedIndex">
-  <mat-tab *ngFor="let tab of tabs" [label]="tab.title">
+  <mat-tab *ngFor="let tab of tabs$ | async" [label]="tab.title">
     <div class="cards-container">
       <mat-card class="tab-card" *ngFor="let card of tab.cards" [ngClass]="card.layout">
         <mat-card-title>{{ card.title }}</mat-card-title>
 
         <ng-container *ngFor="let item of card.items">
           <app-sensor *ngIf="item.type === 'sensor'" [item]="item"></app-sensor>
+
           <app-device *ngIf="item.type === 'device'" [item]="item"></app-device>
         </ng-container>
       </mat-card>

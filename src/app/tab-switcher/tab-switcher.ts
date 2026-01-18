@@ -1,22 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { HighlightOnDirective } from '../highlight';
-import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
+
 import { DeviceComponent } from '../device/device';
 import { SensorComponent } from '../sensor/sensor';
-import { DashboardService } from '../services/dashboard.service';
+
 import { Tab } from '../models/tab.model';
+import { loadDashboard } from '../store/dashboard.actions';
+import { selectTabs } from '../store/dashboard.selectors';
 
 @Component({
   selector: 'app-tab-switcher',
   standalone: true,
   imports: [
+    CommonModule,
     MatTabsModule,
     MatCardModule,
-    CommonModule,
     MatSlideToggleModule,
     FormsModule,
     DeviceComponent,
@@ -26,25 +31,14 @@ import { Tab } from '../models/tab.model';
   styleUrls: ['./tab-switcher.scss'],
 })
 export class TabSwitcher implements OnInit {
-  tabs: Tab[] = [];
+  tabs$: Observable<Tab[]>;
   selectedIndex = 0;
 
-  constructor(private dashboardService: DashboardService) {}
-
-  ngOnInit() {
-    this.loadDashboardTabs('overview'); // default dashboardId, keyinchalik route’dan olinadi
+  constructor(private store: Store) {
+    this.tabs$ = this.store.select(selectTabs);
   }
 
-  loadDashboardTabs(dashboardId: string) {
-    this.dashboardService.getDashboardById(dashboardId).subscribe({
-      next: (data) => {
-        this.tabs = data.tabs || [];
-        this.selectedIndex = 0;
-      },
-      error: (err) => {
-        console.error('Error loading tabs:', err);
-        this.tabs = [];
-      },
-    });
+  ngOnInit(): void {
+    this.store.dispatch(loadDashboard({ dashboardId: 'overview' }));
   }
 }
