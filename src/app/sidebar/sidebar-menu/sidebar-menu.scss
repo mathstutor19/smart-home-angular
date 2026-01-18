@@ -1,0 +1,14 @@
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  color: #ccc;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+nav a.active {
+  background: #1e88e5;
+  color: #fff;
+}

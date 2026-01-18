@@ -1,0 +1,13 @@
+.dashboard {
+  padding: 16px;
+  color: white;
+  width: 75vw;
+  height: 100vh;
+  margin: auto;
+}
+@media (max-width: 991px) {
+  .dashboard {
+    width: 100vw;
+    margin-left: -260px;
+  }
+}

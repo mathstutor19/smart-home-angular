@@ -1,12 +1,18 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SidebarLayoutComponent } from './sidebar/sidebar';
+import { Dashboard } from './dashboard/dashboard';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet, SidebarLayoutComponent, CommonModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('smart-home');
+  private auth = inject(AuthService);
+  isAuth = computed(() => this.auth.isAuthenticated());
 }
